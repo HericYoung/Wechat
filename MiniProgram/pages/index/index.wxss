@@ -1,0 +1,10 @@
+/**index.wxss**/
+.window{
+  color:#4995fa;
+}
+.indexBtn{
+  margin-top: 20%;
+  height: 40%;
+  width: 60%;
+  background: #A2D5F2
+}

@@ -1,0 +1,22 @@
+/* pages/newGame/newGame.wxss */
+.newRoundBtn{
+  position: absolute; 
+  bottom: 0;
+  width: 100%;
+  background:#A2D5F2;
+}
+.name_section{
+  width:80%;
+  height:20%;
+  display: block;
+  padding:10%;
+}
+.name_label{
+  float: left;
+  -ms-text-size-adjust: 100px
+}
+.btnSection{
+  position: absolute; 
+  bottom: 0;
+  width: 100%;
+}

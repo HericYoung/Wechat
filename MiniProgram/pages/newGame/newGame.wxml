@@ -1,0 +1,25 @@
+<!--pages/newGame/newGame.wxml-->
+<view>
+  <form bindsubmit="nameSubmit" bindreset="nameReset">
+    <view class="name_section">
+      <view class="name_label">玩家1：</view>
+      <input class="name_input" type="text" name="player1_name" placeholder='请输入玩家1姓名'></input>
+    </view>
+    <view class="name_section">
+      <view class="name_label">玩家2：</view>
+      <input class="name_input" type="text" name="player2_name" placeholder='请输入玩家2姓名'></input>
+    </view>
+    <view class="name_section">
+      <view class="name_label">玩家3：</view>
+      <input class="name_input" type="text" name="player3_name" placeholder='请输入玩家3姓名'></input>
+    </view>
+    <view class="name_section">
+      <view class="name_label">玩家4：</view>
+      <input class="name_input" type="text" name="player4_name" placeholder='请输入玩家4姓名'></input>
+    </view>
+    <view class="btnSection">
+      <button class="name_submit" formType="submit">确认</button>
+      <button class="name_reset" formType="reset">重置</button>
+    </view>
+  </form>
+</view>

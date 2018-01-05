@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view>
+    <button class="indexBtn" bindtap='newGame'>进入牌局</button>
+</view>

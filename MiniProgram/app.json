@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/newGame/newGame",
+    "pages/GameMain/GameMain"
+  ],
+  "window": {
+    "backgroundTextStyle": "#FAFAFA",
+    "navigationBarBackgroundColor": "#07689F",
+    "navigationBarTitleText": "开台开台",
+    "navigationBarTextStyle": "white"
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "debug": true
+}

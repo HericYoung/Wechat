@@ -1,0 +1,55 @@
+<!--pages/GameMain/GameMain.wxml-->
+<view class="name_row">
+  <view class='name_view'>{{player1_name}}</view>
+  <view class='name_view'>{{player2_name}}</view>
+  <view class='name_view'>{{player3_name}}</view>
+  <view class='name_view'>{{player4_name}}</view>
+  <view style="clear:both"></view>
+</view>
+
+<view class="number_row" wx:for="{{game_data}}" wx:for-item="round" wx:for-index="roundNum" wx:key="{{roundNum}}">
+  <view class='number_view' wx:for="{{round}}" wx:for-item="number"  wx:key="{{index}}">
+    {{number}}
+  </view>
+  <view style="clear:both"></view>
+</view>
+
+<view>
+  <button bindtap="recallLatestRound">撤消最新一轮记分</button>
+</view>
+
+<view class="newRoundFrom" style="display:{{picker_display}}">
+  <view class="picker_title">该轮各人剩余扑克张数</view>
+  <picker-view indicator-style="height: 50px;" class="number_picker" bindchange="picker_change" value="{{value}}">
+    <picker-view-column>
+      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player1_{{index}}">
+        <view wx:if="{{item == '0'}}">赢</view>
+        <view wx:else>{{item}}</view>
+      </view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player2_{{index}}">
+        <view wx:if="{{item == '0'}}">赢</view>
+        <view wx:else>{{item}}</view>
+      </view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player3_{{index}}">
+      <view wx:if="{{item == '0'}}">赢</view>
+        <view wx:else>{{item}}</view>  
+    </view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player4_{{index}}">
+        <view wx:if="{{item == '0'}}">赢</view>
+        <view wx:else>{{item}}</view>  
+      </view>
+    </picker-view-column>
+  </picker-view>
+  <button bindtap='cancelNewRound' class="picker_btn">取消</button>
+  <button bindtap='addNewRound' class="picker_btn">记录</button>
+</view>
+
+<button class="calBtn" bindtap='newRound' style="disabled:{{addRoundBtnDisabled}}">结算新一轮</button>
+
+

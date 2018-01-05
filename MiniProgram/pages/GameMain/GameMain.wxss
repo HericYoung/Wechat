@@ -1,0 +1,48 @@
+/* pages/GameMain/GameMain.wxss */
+.name_row{
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 90%;
+  border: 1px solid black;
+}
+.name_view{
+  text-align: center;
+  float:left;
+  width:25%;
+}
+.number_row{
+  margin: 0 auto;
+  width: 90%;
+  height:30px;
+  border-top: 1px solid black;
+}
+.number_view{
+  text-align: center;
+  float:left;
+  width:25%;
+}
+.calBtn{
+  position:fixed;
+  bottom: 0;
+  width:100%;
+}
+.newRoundFrom{
+  width:100%;
+  height:300px;
+  position:fixed;
+  bottom: 3.6%;
+  z-index: 99;
+}
+.number_picker{
+  margin:0 auto;
+  text-align:center;
+  width: 90%; 
+  height: 250px;
+}
+.picker_btn{
+  width:50%;
+  float:left;
+}
+.picker_title{
+  text-align: center;
+}
