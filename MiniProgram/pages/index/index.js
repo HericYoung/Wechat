@@ -92,12 +92,12 @@ Page({
   newGame:function(){
     if(this.data.createtime) {
       wx.showModal({
-        title: "提示",
-        content: "发现手机本地保存有未完成的牌局，需要继续进行吗？",
-        cancelText: "新建牌局",
-        // concelColor:,
-        // confirmColor:,
-        confirmText: "继续牌局",
+        title: "注意",
+        content: "手机存有未完成的牌局，需要继续进行吗？",
+        cancelText: "新建",
+        // cancelColor:"#07689F",
+        confirmColor:"#07689F",
+        confirmText: "继续",
         success: function (res) {
           if (res.confirm) {
             wx.navigateTo({

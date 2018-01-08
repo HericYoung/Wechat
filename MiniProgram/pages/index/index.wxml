@@ -1,4 +1,11 @@
 <!--index.wxml-->
 <view>
-    <button class="indexBtn" bindtap='newGame'>进入牌局</button>
+  <view class="cry">
+    <text class="line_text">请不起美工</text>
+
+    <text class="line_text">我又不会设计</text>
+
+    <text class="line_text">那就这样吧</text>
+  </view>
+  <button class="indexBtn" bindtap='newGame'>开始</button>
 </view>

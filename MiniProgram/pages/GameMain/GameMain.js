@@ -1,4 +1,7 @@
 // pages/GameMain/GameMain.js
+
+var util = require('../../utils/util.js');  
+
 Page({
 
   /**
@@ -29,8 +32,10 @@ Page({
                     13:13
                   },
     picker_display:"none",
-    addRoundBtnDisabled:"false",
-    new_round_number:{0:0,1:0,2:0,3:0}
+    picker_numbers:{0:0,1:0,2:0,3:0},
+    round_addition:[],
+    isOver:false,
+    touch_bottom_tip:"往下拉查看更多"
   },
 
   /**
@@ -110,6 +115,23 @@ Page({
           that.setData({ current_sum: res.data });
         }
       }
+    });
+
+    wx.getStorage({
+      key: "round_addition",
+      success: function (res) {
+        if (res.data) {
+          that.setData({ round_addition: res.data });
+        }
+      }
+    });
+    wx.getStorage({
+      key: "isOver",
+      success: function (res) {
+        if (res.data) {
+          that.setData({ isOver: res.data });
+        }
+      }
     })
   },
 
@@ -161,36 +183,60 @@ Page({
   //提交新一轮记分
   addNewRound:function(){
     var current_sum = this.data.current_sum;
-    var new_round_number = this.data.new_round_number;
+    var picker_numbers = this.data.picker_numbers;
     var new_round_data = {};
     var game_data = this.data.game_data;
     var isOver = false;
     var loser = "";
+    var round_addition = this.data.round_addition;
+    var new_addition = [];
+    var winner = 0;
+
+    for(var index = 0;index < picker_numbers.length;index++){
+      if(picker_numbers[index] == 0){
+        winner++;
+      }
+    }
+    if(winner == 0){
+      wx.showToast({
+        title: '没人赢的吗?',
+      });
+      return;
+    }
+    else if(winner > 1){
+      wx.showToast({
+        title: '这么多人赢的吗？',
+      });
+      return;
+    }
 
     for(var index = 0;index < current_sum.length;index++){
-      if(new_round_number[index] == 0){
+      if(picker_numbers[index] == 0){
         new_round_data[index] = "-";
+        new_addition[index] = 0;
       }
       else{
-        if (new_round_number[index] >= 8 && new_round_number[index] < 10){
-          new_round_number[index] *= 2; 
+        if (picker_numbers[index] >= 8 && picker_numbers[index] < 10){
+          picker_numbers[index] *= 2; 
         }
-        else if (new_round_number[index] >= 10 && new_round_number[index] < 13){
-          new_round_number[index] *= 3; 
+        else if (picker_numbers[index] >= 10 && picker_numbers[index] < 13){
+          picker_numbers[index] *= 3; 
         }
-        else if (new_round_number[index] == 13) {
-          new_round_number[index] *= 4;
+        else if (picker_numbers[index] == 13) {
+          picker_numbers[index] *= 4;
         }
 
-        current_sum[index] += new_round_number[index];
+        current_sum[index] += picker_numbers[index];
+        new_addition[index] = picker_numbers[index];
         new_round_data[index] = current_sum[index];
       }
     }
+    round_addition.push(new_addition);
     game_data[game_data.length] = new_round_data;
-    new_round_number = [0,0,0,0];
     this.setData({"current_sum":current_sum});
     this.setData({"game_data":game_data});
-    this.setData({"new_round_number": new_round_number});
+    this.setData({ "round_addition": round_addition });
+    
     
     wx.setStorage({
       key: "current_sum",
@@ -201,6 +247,13 @@ Page({
       key: "game_data",
       data: game_data
     });
+
+    wx.setStorage({
+      key: "round_addition",
+      data: round_addition
+    });
+
+    
 
     for(var num in current_sum){
       if(current_sum[num] >= 100){
@@ -217,24 +270,42 @@ Page({
 
     this.setData({"picker_display":"none"});
 
+    this.setData({ "isOver": isOver });
+
     if(isOver){
       wx.showModal({
-        content: "结束"
+        // title: '',
+        content: '结束',
+        showCancel: false,
+        cancelText: '',
+        cancelColor: '',
+        confirmText: '知道了',
+        confirmColor: '#07689F',
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
       })
-      clearLastGameData();
-      this.setData({"addRoundBtnDisabled":"true"});
-
     }
     else{
 
     }
+    wx.setStorage({
+      key: "isOver",
+      data: isOver
+    });
   },
 
   picker_change:function(e){
     var values = e.detail.value;
 
-    var new_round_number = [values[0],values[1],values[2],values[3]];
-    this.setData({ "new_round_number": new_round_number});
+    var picker_numbers = [values[0],values[1],values[2],values[3]];
+    this.setData({ "picker_numbers": picker_numbers});
+  },
+  touchBottom:function(){
+    this.setData({"touch_bottom_tip":"到底了"});
+  },
+  touchTop: function () {
+    this.setData({ "touch_bottom_tip": "往下拉查看更多" });
   },
 
   //撤消最新一轮记分
@@ -242,6 +313,15 @@ Page({
     var that = this;
     var game_data = that.data.game_data;
     var current_sum = that.data.current_sum;
+    var round_addition = that.data.round_addition;
+    var isOver = false;
+    if(game_data.length == 0){
+      wx.showToast({
+        image:"../../icon/nodata.png",
+        title: '暂无数据',
+      });
+      return;
+    }
 
     wx.showModal({
       // title: '确认',
@@ -250,23 +330,21 @@ Page({
       cancelText: '取消',
       cancelColor: '',
       confirmText: '确认',
-      confirmColor: '',
+      confirmColor: '#07689F',
       success: function(res) {
         if(res.confirm){
           console.log("删除前"+current_sum);
           for(var index = 0;index < current_sum.length;index++){
             console.log(game_data[game_data.length - 1][index]);
-            if(game_data[game_data.length-1][index] == "-"){
-            }
-            else{
-              current_sum[index] -= game_data[game_data.length - 2][index];
-            }
+            current_sum[index] -= round_addition[round_addition.length-1][index];
           }
           console.log("删除后" + current_sum);
           game_data.pop();
+          round_addition.pop();
           that.setData({"game_data":game_data});
           that.setData({"current_sum":current_sum});
-
+          that.setData({ "round_addition": round_addition });
+          that.setData({"isOver":isOver});
           wx.setStorage({
             key: 'game_data',
             data: game_data,
@@ -277,11 +355,21 @@ Page({
             data: current_sum,
           });
 
+          wx.setStorage({
+            key: 'round_addition',
+            data: round_addition,
+          });
+
+          wx.setStorage({
+            key: "isOver",
+            data: isOver
+          });
+
           wx.showToast({
             title: '成功',
             icon: 'success',
-            image: '',
-            duration: 0,
+            image: '../../icon/ok.png',
+            duration: 1000,
             mask: true,
             success: function(res) {},
             fail: function(res) {},
@@ -292,8 +380,97 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
 
+  // 在当前玩家下开始新牌局
+  newGame:function(){
+    var game_data = [];
+    var current_sum = [0, 0, 0, 0];
+    var picker_numbers = { 0:0, 1:0, 2:0, 3:0 };
+    var round_addition = [];
+    var createtime = util.formatTime(new Date()); 
+    var that = this;
 
+    wx.showModal({
+      // title: '',
+      content: '确认开始新的一局？',
+      showCancel: true,
+      cancelText: '不',
+      cancelColor: '',
+      confirmText: '是是是',
+      confirmColor: '#07689F',
+      success: function(res) {
+        if(res.confirm){
+          wx.setStorage({
+            key: 'game_data',
+            data: game_data,
+          });
+
+          wx.setStorage({
+            key: 'current_sum',
+            data: current_sum,
+          });
+
+          wx.setStorage({
+            key: 'round_addition',
+            data: round_addition,
+          });
+
+          wx.setStorage({
+            key: 'createtime',
+            data: createtime
+          });
+          wx.setStorage({
+            key: 'isOver',
+            data: false
+          });
+
+          that.setData({ 'game_data': game_data });
+          that.setData({ 'current_sum': current_sum });
+          that.setData({ 'round_addition': round_addition });
+          that.setData({ 'createtime': createtime });
+          that.setData({ 'isOver': false });
+
+          wx.showToast({
+            title: '新局开始',
+            icon: '',
+            image: '',
+            duration: 1000,
+            mask: true,
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
+          });
+          console.log("新局开始");
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  // 在当前玩家下开始新牌局end
+  
+  //清除当前局数据并返回首页
+  returnIndex:function(){
+    wx.showModal({
+      // title: '',
+      content: '返回首页将清除该局数据，确认返回？',
+      showCancel: true,
+      cancelText: '不',
+      cancelColor: '',
+      confirmText: '是',
+      confirmColor: '#07689F',
+      success: function(res) {
+        if(res.confirm){
+          clearLastGameData();
+          wx.reLaunch({
+            url: '../index/index',
+          })
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   }
 })
 
@@ -369,6 +546,17 @@ function clearLastGameData() {
       isSuccess = false;
     }
   });
+
+  wx.removeStorage({
+    key: 'round_addition',
+    success: function (res) {
+      console.log(res.data)
+    },
+    fail: function () {
+      isSuccess = false;
+    }
+  });
+
   console.log("清除旧数据");
   return isSuccess;
 }

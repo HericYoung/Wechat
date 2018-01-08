@@ -1,9 +1,13 @@
 /* pages/newGame/newGame.wxss */
-.newRoundBtn{
-  position: absolute; 
-  bottom: 0;
-  width: 100%;
-  background:#A2D5F2;
+page{
+  background: #FAFAFA;
+}
+.tipText{
+  padding-left: 70rpx;
+  height: 100rpx;
+  color: #6a7989;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .name_section{
   width:80%;
@@ -17,6 +21,130 @@
 }
 .btnSection{
   position: absolute; 
-  bottom: 0;
+  bottom: 0.1%;
   width: 100%;
+}
+.input {
+	position: relative;
+	z-index: 2;
+	display: inline-block;
+	margin: 0em;
+  padding-left:30rpx;
+	max-width: 520rpx;
+	width: calc(100% - 60rpx);
+	vertical-align: top;
+}
+
+.input__field {
+  line-height: 5em;
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #aaa;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #6a7989;
+	font-weight: bold;
+	font-size: 70.25%;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 0.7em 0;
+	width: 100%;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+}
+
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+
+.icon {
+	color: #ddd;
+	font-size: 150%;
+}
+
+/* Individual styles */
+
+/* Haruki */
+
+.input--haruki {
+	margin: 2.5em 1em 1em;
+}
+
+.input__field--haruki {
+	padding: 0.4em 0em 0;
+	width: 100%;
+	background: transparent;
+	color: #AFB5BB;
+	font-size: 1.55em;
+  line-height: 5rem;
+  height:2rem;
+}
+
+.input__label--haruki {
+	position: absolute;
+	width: 100%;
+	text-align: left;
+	pointer-events: none;
+}
+
+.input__label-content--haruki {
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.input__label--haruki::before,
+.input__label--haruki::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 4px;
+	background: #6a7989;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.input__label--haruki::before {
+	top: 0;
+}
+
+.input__label--haruki::after {
+	bottom: 0;
+}
+
+.name_submit{
+  background: #07689F;
+  width: 99%;
+  color:#FAFAFA;
+  margin-bottom: 1%;
+}
+.name_reset{
+  width: 99%;
 }

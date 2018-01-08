@@ -6,10 +6,13 @@
     "pages/GameMain/GameMain"
   ],
   "window": {
-    "backgroundTextStyle": "#FAFAFA",
-    "navigationBarBackgroundColor": "#07689F",
-    "navigationBarTitleText": "开台开台",
-    "navigationBarTextStyle": "white"
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FAFAFA",
+    "navigationBarTitleText": "锄大地助手",
+    "navigationBarTextStyle": "black",
+    "backgroundColor":"#FAFAFA",
+    "enablePullDownRefresh":false
+
   },
   "networkTimeout": {
     "request": 60000,

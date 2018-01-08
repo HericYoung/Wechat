@@ -2,8 +2,6 @@
 
 var util = require('../../utils/util.js');  
 
-var status = 0;//1:加载上次的牌局：0：新建牌局
-
 Page({
   /**
    * 页面的初始数据
@@ -16,6 +14,10 @@ Page({
     createtime:"",
     game_data:[],
     current_sum:[0,0,0,0],
+    input1LabelAnimation:{},
+    input2LabelAnimation: {},
+    input3LabelAnimation: {},
+    input4LabelAnimation: {}
   },
 
   /**
@@ -92,29 +94,33 @@ Page({
 
     if(!player1_name){
       wx.showToast({
-        title: '请输入玩家1姓名',
-        icon:"loading"
+        title: '玩家1姓名?',
+        icon:"loading",
+        image:"../../icon/warn.png"
       })
       return;
     }
     if (!player2_name) {
       wx.showToast({
-        title: '请输入玩家2姓名',
-        icon: "loading"
+        title: '玩家2姓名?',
+        icon: "loading",
+        image: "../../icon/what.png"
       })
       return;
     }
     if (!player3_name) {
       wx.showToast({
-        title: '请输入玩家3姓名',
-        icon: "loading"
+        title: '玩家3姓名?',
+        icon: "loading",
+        image: "../../icon/what.png"
       })
       return;
     }
     if (!player4_name) {
       wx.showToast({
-        title: '请输入玩家4姓名',
-        icon: "loading"
+        title: '玩家4姓名?',
+        icon: "loading",
+        image: "../../icon/what.png"
       })
       return;
     }
@@ -136,8 +142,128 @@ Page({
   nameReset:function(){
     wx.showToast({
       title: '姓名已重置',
+      image:"../../icon/ok.png"
     })
+  },
+  focusOnInput1:function(){
+    var animation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    });
+
+    animation.translate(-10,-40).step();
+
+    this.setData({
+      input1LabelAnimation: animation.export()
+    })
+  },
+  focusOnInput2: function () {
+    var animation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    });
+
+    animation.translate(-10, -40).step();
+
+    this.setData({
+      input2LabelAnimation: animation.export()
+    })
+  },
+  focusOnInput3: function () {
+    var animation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    });
+
+    animation.translate(-10, -40).step();
+
+    this.setData({
+      input3LabelAnimation: animation.export()
+    })
+  },
+  focusOnInput4: function () {
+    var animation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: 1000,
+      timingFunction: "ease",
+      delay: 0
+    });
+
+    animation.translate(-10, -40).step();
+
+    this.setData({
+      input4LabelAnimation: animation.export()
+    })
+  },
+
+
+  loseFocusOnInput1:function(e){
+    if(e.detail.value == ""){
+      var animation = wx.createAnimation({
+        transformOrigin: "50% 50%",
+        duration: 1000,
+        timingFunction: "ease",
+        delay: 0
+      });
+      animation.step();
+
+      this.setData({
+        input1LabelAnimation: animation.export()
+      })
+    }
+  },
+  loseFocusOnInput2: function (e) {
+    if (e.detail.value == "") {
+      var animation = wx.createAnimation({
+        transformOrigin: "50% 50%",
+        duration: 1000,
+        timingFunction: "ease",
+        delay: 0
+      });
+      animation.step();
+
+      this.setData({
+        input2LabelAnimation: animation.export()
+      })
+    }
+  }, 
+  loseFocusOnInput3: function (e) {
+    if (e.detail.value == "") {
+      var animation = wx.createAnimation({
+        transformOrigin: "50% 50%",
+        duration: 1000,
+        timingFunction: "ease",
+        delay: 0
+      });
+      animation.step();
+
+      this.setData({
+        input3LabelAnimation: animation.export()
+      })
+    }
+  },
+  loseFocusOnInput4: function (e) {
+    if (e.detail.value == "") {
+      var animation = wx.createAnimation({
+        transformOrigin: "50% 50%",
+        duration: 1000,
+        timingFunction: "ease",
+        delay: 0
+      });
+      animation.step();
+
+      this.setData({
+        input4LabelAnimation: animation.export()
+      })
+    }
   }
+  
 
 });
 
@@ -195,6 +321,16 @@ function clearLastGameData(){
   });
 
   wx.removeStorage({
+    key: 'isOver',
+    success: function (res) {
+      console.log(res.data)
+    },
+    fail: function () {
+      isSuccess = false;
+    }
+  });
+
+  wx.removeStorage({
     key: 'game_data',
     success: function (res) {
       console.log(res.data)
@@ -206,6 +342,16 @@ function clearLastGameData(){
 
   wx.removeStorage({
     key: 'current_sum',
+    success: function (res) {
+      console.log(res.data)
+    },
+    fail: function () {
+      isSuccess = false;
+    }
+  });
+
+  wx.removeStorage({
+    key: 'round_addition',
     success: function (res) {
       console.log(res.data)
     },
