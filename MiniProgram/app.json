@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/newGame/newGame",
     "pages/GameMain/GameMain"
   ],
+
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FAFAFA",
@@ -20,5 +20,6 @@
     "uploadFile": 60000,
     "downloadFile": 60000
   },
+
   "debug": true
 }

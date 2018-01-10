@@ -1,62 +1,54 @@
-//index.js
-//获取应用实例
-const app = getApp()
+/*
+* index.js
+* 首页页面逻辑
+* 
+* @Author: H3ric Young
+* @Date:   2018-01-4 14:30:02
+* @Last Modified by:   H3ric Young
+* @Last Modified time: 2018-01-10 15:25:22
+*/
 
+/**
+ * Page()函数用来注册一个页面。
+ * 接受一个 object 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。
+ */
 Page({
+  
+  /**
+   * 页面的初始数据
+   */
   data: {
-    player1_name: "",
-    player2_name: "",
-    player3_name: "",
-    player4_name: "",
-    createtime: "",
-    game_data: [],
-    current_sum: [0,0,0,0],
+    createtime: "",   //旧牌局（若存在）的创建时间
   },
+
+  /**
+   * [onLoad 生命周期函数--监听页面加载]
+   * 一个页面只会调用一次，可以在 onLoad 中获取打开当前页面所调用的 query 参数。
+   * 
+   * @author Heric
+   * @date   2018-01-4
+   *
+   * @access [access]
+   * @param  {[type]}   options [description]
+   * @return {[type]}           [description]
+   */
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    console.log("页面初始化hhhh");
+    
   },
+
+  /**
+   * [onReady 生命周期函数--监听页面初次渲染完成]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   onReady: function () {
-    // 页面渲染完成
-    console.log("页面渲染完成hhhh");
     var that = this;
-    wx.getStorage({
-      key: "player1_name",
-      success: function (res) {
-        that.setData({ player1_name: res.data });
-      }
-    });
 
-    wx.getStorage({
-      key: "player2_name",
-      success: function (res) {
-        that.setData({ player2_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "player3_name",
-      success: function (res) {
-        that.setData({ player3_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "player4_name",
-      success: function (res) {
-        that.setData({ player4_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "game_data",
-      success: function (res) {
-        if(res.data){
-          that.setData({ game_data: res.data });
-        }
-      }
-    })
-
+    // 尝试读取本地数据，判断是否有未完成的旧牌局
+    // 若存在旧牌局，将该牌局的创建时间存储到页面的data的相应键的值中
     wx.getStorage({
       key: "createtime",
       success: function (res) {
@@ -64,32 +56,68 @@ Page({
           that.setData({ createtime: res.data });
         }
       }
-    }),
-      wx.getStorage({
-        key: "current_sum",
-        success: function (res) {
-          if(res.data){
-            that.setData({current_sum: res.data });
-          }
-        }
-      })
+    });
   },
+
+  /**
+   * [onShow 生命周期函数--监听页面显示]
+   * @author Heric
+   * @date   2018-01-4
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   onShow: function () {
-    // 页面显示
-    console.log("页面显示hhhh");
+    
   },
+
+  /**
+   * [onHide 生命周期函数--监听页面隐藏]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   onHide: function () {
-    // 页面隐藏
-    console.log("页面隐藏hhhh");
+    
   },
+
+  /**
+   * [onUnload 生命周期函数--监听页面卸载]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   onUnload: function () {
-    // 页面关闭
-    console.log("页面关闭hhhh");
+    
   },
+
+  /**
+   * [onPullDownRefresh 页面相关事件处理函数--监听用户下拉动作]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   onPullDownRefresh:function(){
-    console.log("下拉刷新hhhh");
+    
   },
-  newGame:function(){
+
+  /**
+   * [startGame 进入游戏]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
+  startGame:function(){
+    //判断是否有未完成的旧牌局的数据
+    //若有，使用弹窗供用户选择继续进行旧牌局或者新开牌局
     if(this.data.createtime) {
       wx.showModal({
         title: "注意",
@@ -115,7 +143,7 @@ Page({
         }
       });
     }
-    else{
+    else{//没有旧牌局的数据，直接新建牌局
       wx.navigateTo({
         url: '../newGame/newGame',
       })

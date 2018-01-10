@@ -2,6 +2,10 @@
 page{
   background: #FAFAFA;
 }
+scroll-view{
+  height:950rpx;
+  
+}
 .tipText{
   padding-left: 70rpx;
   height: 100rpx;

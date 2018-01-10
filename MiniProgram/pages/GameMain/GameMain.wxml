@@ -2,10 +2,10 @@
 <view class="game_data_detail">
   <scroll-view scroll-y="true" bindscrolltolower="touchBottom" bindscrolltoupper="touchTop">
     <view class="name_row table_border">
-      <view class='name_view'>{{player1_name}}</view>
-      <view class='name_view'>{{player2_name}}</view>
-      <view class='name_view'>{{player3_name}}</view>
-      <view class='name_view'>{{player4_name}}</view>
+      <view class='name_view'>{{players_name[0]}}</view>
+      <view class='name_view'>{{players_name[1]}}</view>
+      <view class='name_view'>{{players_name[2]}}</view>
+      <view class='name_view'>{{players_name[3]}}</view>
       <view style="clear:both"></view>
     </view>
 
@@ -27,13 +27,13 @@
 
 
 <view class="progressArea">
-  <text class="progress_text">{{player1_name}}</text>
+  <text class="progress_text">{{players_name[0]}}</text>
   <progress percent="{{current_sum[0]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{player2_name}}</text>
+  <text class="progress_text">{{players_name[1]}}</text>
   <progress percent="{{current_sum[1]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{player3_name}}</text>
+  <text class="progress_text">{{players_name[2]}}</text>
   <progress percent="{{current_sum[2]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{player4_name}}</text>
+  <text class="progress_text">{{players_name[3]}}</text>
   <progress percent="{{current_sum[3]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
 </view>
 
@@ -71,8 +71,8 @@
     </picker-view-column>
   </picker-view>
   <view class="picker_btn">
-    <button bindtap='cancelNewRound' class="picker_cancel">取消</button>
-    <button bindtap='addNewRound' class="picker_confirm">记录</button>
+    <button bindtap='hidePicker' class="picker_cancel">取消</button>
+    <button bindtap='submitNewRound' class="picker_confirm">记录</button>
   </view>
   
 </view>

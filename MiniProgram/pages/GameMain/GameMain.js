@@ -1,6 +1,14 @@
-// pages/GameMain/GameMain.js
+/*
+* pages/GameMain/GameMain.js
+* 游戏主页面
+* 
+* @Author: H3ric Young
+* @Date:   2018-01-04 16:57:30
+* @Last Modified by:   H3ric Young
+* @Last Modified time: 2018-01-10 17:24:51
+*/
 
-var util = require('../../utils/util.js');  
+var util = require('../../utils/util.js');  //引入获取格式化系统时间的模块
 
 Page({
 
@@ -8,14 +16,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    player1_name: "",
-    player2_name: "",
-    player3_name: "",
-    player4_name: "",
-    createtime: "",
-    game_data: [],
-    current_sum:[0,0,0,0],
-    number_values:{
+    players_name: [],              //玩家姓名列表
+    createtime: "",                 //该牌局创建时间
+    game_data: [],                  //该局的详细数据
+    current_sum:[0,0,0,0],          //当前的每个玩家累计剩余牌数
+    number_values:{                 //剩余牌数选择器的数据列表
                     0:0,
                     1:1,
                     2:2,
@@ -31,22 +36,34 @@ Page({
                     12:12,
                     13:13
                   },
-    picker_display:"none",
-    picker_numbers:{0:0,1:0,2:0,3:0},
-    round_addition:[],
-    isOver:false,
-    touch_bottom_tip:"往下拉查看更多"
+
+    picker_display:"none",           //剩余牌数选择器的显示状态
+    picker_numbers:{0:0,1:0,2:0,3:0},//当前一轮的选择器的初始值
+    round_addition:[],               //每轮每人添加的牌数（已经过倍数换算）
+    isOver:false,                    //该局是否结束
+    touch_bottom_tip:"往下拉查看更多"  //下拉提示信息
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * [onLoad 生命周期函数--监听页面加载]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @param  {[type]}   options [description]
+   * @return {[type]}           [description]
    */
   onLoad: function (options) {
   
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * [onReady 生命周期函数--监听页面初次渲染完成]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onReady: function () {
     wx.showLoading({
@@ -59,35 +76,20 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * [onShow 生命周期函数--监听页面显示]
+   * @author Heric
+   * @date   2018-01-04
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onShow: function () {
+    //读取本地缓存数据
     var that = this;
     wx.getStorage({
-      key: "player1_name",
+      key: "players_name",
       success: function (res) {
-        that.setData({ player1_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "player2_name",
-      success: function (res) {
-        that.setData({ player2_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "player3_name",
-      success: function (res) {
-        that.setData({ player3_name: res.data });
-      }
-    });
-
-    wx.getStorage({
-      key: "player4_name",
-      success: function (res) {
-        that.setData({ player4_name: res.data });
+        that.setData({ players_name: res.data });
       }
     });
 
@@ -136,52 +138,97 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * [onHide 生命周期函数--监听页面隐藏]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onHide: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * [onUnload 生命周期函数--监听页面卸载]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onUnload: function () {
   
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * [onPullDownRefresh 页面相关事件处理函数--监听用户下拉动作]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onPullDownRefresh: function () {
   
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * [onReachBottom 页面上拉触底事件的处理函数]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onReachBottom: function () {
   
   },
 
   /**
-   * 用户点击右上角分享
+   * [onShareAppMessage 用户点击右上角分享]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onShareAppMessage: function () {
   
   },
 
-  //展开新一轮记分编辑面板
+  /**
+   * [showPicker 展开新一轮记分编辑面板]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   newRound:function(){
     this.setData({"picker_display":"block"});
   },
   
-  //取消新一轮记分
-  cancelNewRound:function(){
+  /**
+   * [hidePicker 取消新一轮记分,隐藏选择器]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
+  hidePicker:function(){
     this.setData({ "picker_display": "none" });
   },
 
-  //提交新一轮记分
-  addNewRound:function(){
+  /**
+   * [addNewRound 提交新一轮记分]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   */
+  submitNewRound:function(){
     var current_sum = this.data.current_sum;
     var picker_numbers = this.data.picker_numbers;
     var new_round_data = {};
@@ -197,12 +244,15 @@ Page({
         winner++;
       }
     }
+
+    //当胜利人数为0时
     if(winner == 0){
       wx.showToast({
         title: '没人赢的吗?',
       });
       return;
     }
+    //当胜利人数多于1时
     else if(winner > 1){
       wx.showToast({
         title: '这么多人赢的吗？',
@@ -210,6 +260,7 @@ Page({
       return;
     }
 
+    //根据剩余牌数的不同情况做相应处理
     for(var index = 0;index < current_sum.length;index++){
       if(picker_numbers[index] == 0){
         new_round_data[index] = "-";
@@ -254,7 +305,7 @@ Page({
     });
 
     
-
+    //判断每人当前累计剩余牌数，若存在超过或等于100的情况，将该局的状态改为结束
     for(var num in current_sum){
       if(current_sum[num] >= 100){
         isOver = true;
@@ -295,20 +346,54 @@ Page({
     });
   },
 
+  /**
+   * [picker_change 选择器有变动时触发]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @param  {[type]}   e [description]
+   * @return {[type]}     [description]
+   */
   picker_change:function(e){
     var values = e.detail.value;
 
     var picker_numbers = [values[0],values[1],values[2],values[3]];
     this.setData({ "picker_numbers": picker_numbers});
   },
+
+  /**
+   * [touchBottom 滚动条拉到底时触发]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   touchBottom:function(){
     this.setData({"touch_bottom_tip":"到底了"});
   },
+
+  /**
+   * [touchTop 滚动条拉到顶部时触发]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   touchTop: function () {
     this.setData({ "touch_bottom_tip": "往下拉查看更多" });
   },
 
-  //撤消最新一轮记分
+  /**
+   * [recallLatestRound 撤消最新一轮记分]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   recallLatestRound:function(){
     var that = this;
     var game_data = that.data.game_data;
@@ -382,7 +467,14 @@ Page({
     })
   },
 
-  // 在当前玩家下开始新牌局
+  /**
+   * [newGame 在当前玩家下开始新牌局]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   newGame:function(){
     var game_data = [];
     var current_sum = [0, 0, 0, 0];
@@ -450,7 +542,14 @@ Page({
   },
   // 在当前玩家下开始新牌局end
   
-  //清除当前局数据并返回首页
+  /**
+   * [returnIndex 清除当前局数据并返回首页]
+   * @author Heric
+   * @date   2018-01-10
+   *
+   * @access [access]
+   * @return {[type]}   [description]
+   */
   returnIndex:function(){
     wx.showModal({
       // title: '',
@@ -462,7 +561,7 @@ Page({
       confirmColor: '#07689F',
       success: function(res) {
         if(res.confirm){
-          clearLastGameData();
+          wx.clearStorage();
           wx.reLaunch({
             url: '../index/index',
           })
@@ -473,90 +572,3 @@ Page({
     })
   }
 })
-
-//清除缓存
-function clearLastGameData() {
-  var isSuccess = true;
-  wx.removeStorage({
-    key: 'player1_name',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'player2_name',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'player3_name',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'player4_name',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'createtime',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'game_data',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'current_sum',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  wx.removeStorage({
-    key: 'round_addition',
-    success: function (res) {
-      console.log(res.data)
-    },
-    fail: function () {
-      isSuccess = false;
-    }
-  });
-
-  console.log("清除旧数据");
-  return isSuccess;
-}

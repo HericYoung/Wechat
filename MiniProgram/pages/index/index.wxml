@@ -7,5 +7,6 @@
 
     <text class="line_text">那就这样吧</text>
   </view>
-  <button class="indexBtn" bindtap='newGame'>开始</button>
+  <button class="indexBtn" bindtap='startGame'>开始</button>
+
 </view>

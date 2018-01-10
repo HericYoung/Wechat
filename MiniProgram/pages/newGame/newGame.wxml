@@ -1,6 +1,7 @@
 <!--pages/newGame/newGame.wxml-->
 <view>
   <form bindsubmit="nameSubmit" bindreset="nameReset">
+  <scroll-view class="input_field" scroll-y="true">
     <view style="height:50rpx"></view>
     <text class="tipText">输入姓名:</text>
     <view class="input input--haruki">
@@ -33,6 +34,7 @@
       </view>
       <input class="input__field input__field--haruki" type="text" id="input-1" bindfocus='focusOnInput4' bindblur="loseFocusOnInput4"  name="player4_name"/>
     </view>
+    </scroll-view>
 
     <view class="btnSection">
       <button class="name_submit" formType="submit">确认</button>
