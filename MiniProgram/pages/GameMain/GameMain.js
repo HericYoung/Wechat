@@ -5,7 +5,7 @@
 * @Author: H3ric Young
 * @Date:   2018-01-04 16:57:30
 * @Last Modified by:   H3ric Young
-* @Last Modified time: 2018-01-10 17:24:51
+* @Last Modified time: 2018-01-11 10:47:18
 */
 
 var util = require('../../utils/util.js');  //引入获取格式化系统时间的模块
@@ -229,16 +229,16 @@ Page({
    * @access [access]
    */
   submitNewRound:function(){
-    var current_sum = this.data.current_sum;
-    var picker_numbers = this.data.picker_numbers;
-    var new_round_data = {};
-    var game_data = this.data.game_data;
-    var isOver = false;
-    var loser = "";
-    var round_addition = this.data.round_addition;
-    var new_addition = [];
-    var winner = 0;
+    var current_sum = this.data.current_sum;          //当前每人累计剩余牌数
+    var picker_numbers = this.data.picker_numbers;    //选择器上的值
+    var new_round_data = {};                          //新一轮的数据
+    var game_data = this.data.game_data;              //该局完整数据
+    var isOver = false;                               //该局是否结束
+    var round_addition = this.data.round_addition;    //每轮每人增加的剩余牌数
+    var new_addition = [];                            //最新一轮每人增加的牌数
+    var winner = 0;                                   //该轮胜利人数,用于检查该轮数据登记是否出错
 
+    //统计选择器上的胜利人数
     for(var index = 0;index < picker_numbers.length;index++){
       if(picker_numbers[index] == 0){
         winner++;
@@ -249,6 +249,7 @@ Page({
     if(winner == 0){
       wx.showToast({
         title: '没人赢的吗?',
+        image: "../../icon/what.png"
       });
       return;
     }
@@ -256,6 +257,7 @@ Page({
     else if(winner > 1){
       wx.showToast({
         title: '这么多人赢的吗？',
+        image:"../../icon/what.png"
       });
       return;
     }
@@ -288,7 +290,7 @@ Page({
     this.setData({"game_data":game_data});
     this.setData({ "round_addition": round_addition });
     
-    
+    //记录到本地缓存中
     wx.setStorage({
       key: "current_sum",
       data: current_sum
@@ -418,12 +420,13 @@ Page({
       confirmColor: '#07689F',
       success: function(res) {
         if(res.confirm){
-          console.log("删除前"+current_sum);
+
+          //从当前每人的累计剩余牌数中减去最新一轮的剩余牌数
           for(var index = 0;index < current_sum.length;index++){
-            console.log(game_data[game_data.length - 1][index]);
             current_sum[index] -= round_addition[round_addition.length-1][index];
           }
-          console.log("删除后" + current_sum);
+
+          //从该局的完整数据和每局的增长数据中移除最新一轮的数据
           game_data.pop();
           round_addition.pop();
           that.setData({"game_data":game_data});
@@ -476,6 +479,7 @@ Page({
    * @return {[type]}   [description]
    */
   newGame:function(){
+    //将除了玩家名字以外的数据重置为初始值
     var game_data = [];
     var current_sum = [0, 0, 0, 0];
     var picker_numbers = { 0:0, 1:0, 2:0, 3:0 };
@@ -540,7 +544,6 @@ Page({
       complete: function(res) {},
     })
   },
-  // 在当前玩家下开始新牌局end
   
   /**
    * [returnIndex 清除当前局数据并返回首页]
