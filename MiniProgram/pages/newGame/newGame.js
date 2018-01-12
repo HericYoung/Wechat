@@ -128,13 +128,16 @@ Page({
   /**
    * [onShareAppMessage 用户点击右上角分享]
    * @author Heric
-   * @date   2018-01-04
+   * @date   2018-01-12
    *
    * @access [access]
    * @return {[type]}   [description]
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '锄大地助手',
+      path: '/pages/index/index'
+    }
   },
 
   /**

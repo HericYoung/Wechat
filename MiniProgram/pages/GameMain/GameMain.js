@@ -150,6 +150,20 @@ Page({
   },
 
   /**
+   * [onShareAppMessage 转发设置]
+   * @author Heric
+   * @date   2018-01-12
+   * 
+   * 
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '锄大地助手',
+      path: '/pages/index/index'
+    }
+  },
+
+  /**
    * [onUnload 生命周期函数--监听页面卸载]
    * @author Heric
    * @date   2018-01-10

@@ -96,6 +96,20 @@ Page({
   },
 
   /**
+   * [onShareAppMessage 转发设置]
+   * @author Heric
+   * @date   2018-01-12
+   * 
+   * 
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '锄大地助手',
+      path: '/pages/index/index'
+    }
+  },
+
+  /**
    * [onPullDownRefresh 页面相关事件处理函数--监听用户下拉动作]
    * @author Heric
    * @date   2018-01-04
@@ -106,6 +120,7 @@ Page({
   onPullDownRefresh:function(){
     
   },
+
 
   /**
    * [startGame 进入游戏]
