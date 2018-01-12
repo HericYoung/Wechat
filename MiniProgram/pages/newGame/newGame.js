@@ -50,18 +50,7 @@ Page({
    * @return {[type]}   [description]
    */
   onReady: function () {
-    //显示loading提示弹窗
-    wx.showLoading({
-      title: '正在创建新牌局......',
-      mask:true,
-    });
-
-    wx.clearStorage();//清楚本地缓存
-
-    //隐藏loading提示弹窗
-    setTimeout(function () {
-      wx.hideLoading();
-    }, 1000);
+    
   },
 
   /**
@@ -73,7 +62,18 @@ Page({
    * @return {[type]}   [description]
    */
   onShow: function () {
-    
+    //显示loading提示弹窗
+    wx.showLoading({
+      title: '正在创建新牌局......',
+      mask: true,
+    });
+
+    wx.clearStorage();//清楚本地缓存
+
+    //隐藏loading提示弹窗
+    setTimeout(function () {
+      wx.hideLoading();
+    }, 1000);
   },
 
 

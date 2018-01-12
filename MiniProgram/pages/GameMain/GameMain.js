@@ -66,13 +66,7 @@ Page({
    * @return {[type]}   [description]
    */
   onReady: function () {
-    wx.showLoading({
-      title: "载入数据",
-      mask: true,
-    });
-    setTimeout(function () {
-      wx.hideLoading();
-    }, 1000);
+    
   },
 
   /**
@@ -134,7 +128,32 @@ Page({
           that.setData({ isOver: res.data });
         }
       }
-    })
+    });
+
+    if(!this.data.createtime){
+      wx.showLoading({
+        title: '正在返回首页',
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+      setTimeout(function () {
+        wx.hideLoading();
+        wx.reLaunch({
+          url: '../index/index'
+        })
+      }, 2000);
+      
+    }else{
+      wx.showLoading({
+        title: "载入数据",
+        mask: true,
+      });
+      setTimeout(function () {
+        wx.hideLoading();
+      }, 1000);
+    }
   },
 
   /**
@@ -150,11 +169,12 @@ Page({
   },
 
   /**
-   * [onShareAppMessage 转发设置]
+   * [onShareAppMessage 用户点击右上角分享]
    * @author Heric
    * @date   2018-01-12
-   * 
-   * 
+   *
+   * @access [access]
+   * @return {[type]}   [description]
    */
   onShareAppMessage: function () {
     return {

@@ -45,18 +45,7 @@ Page({
    * @return {[type]}   [description]
    */
   onReady: function () {
-    var that = this;
-
-    // 尝试读取本地数据，判断是否有未完成的旧牌局
-    // 若存在旧牌局，将该牌局的创建时间存储到页面的data的相应键的值中
-    wx.getStorage({
-      key: "createtime",
-      success: function (res) {
-        if(res.data){
-          that.setData({ createtime: res.data });
-        }
-      }
-    });
+    
   },
 
   /**
@@ -68,7 +57,18 @@ Page({
    * @return {[type]}   [description]
    */
   onShow: function () {
-    
+    var that = this;
+
+    // 尝试读取本地数据，判断是否有未完成的旧牌局
+    // 若存在旧牌局，将该牌局的创建时间存储到页面的data的相应键的值中
+    wx.getStorage({
+      key: "createtime",
+      success: function (res) {
+        if (res.data) {
+          that.setData({ createtime: res.data });
+        }
+      }
+    });
   },
 
   /**
