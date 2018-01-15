@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view>
   <view class="cry">
-    <text class="line_text">请不起美工</text>
+    <text class="line_text">请不起UI</text>
 
     <text class="line_text">我又不会设计</text>
 
