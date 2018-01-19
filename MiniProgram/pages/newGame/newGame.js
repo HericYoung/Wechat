@@ -423,7 +423,7 @@ function savePlayerName(players_name){
 
   var now_time = util.formatTime(new Date()); 
 
-  console.log(now_time); 
+  console.log("nowtime:"+now_time); 
 
   wx.setStorage({
     key: "players_name",
@@ -432,7 +432,10 @@ function savePlayerName(players_name){
 
   wx.setStorage({
     key: "createtime",
-    data: now_time
+    data: now_time,
+    success:function(res){
+      console.log(res);
+    }
   });
 
   return isSuccess;

@@ -100,6 +100,30 @@ Page({
       success: function (res) {
         if(res.data){
           that.setData({ createtime: res.data });
+          if (that.data.createtime == "") {
+            wx.showLoading({
+              title: '正在返回首页',
+              mask: true,
+              success: function (res) { },
+              fail: function (res) { },
+              complete: function (res) { },
+            })
+            setTimeout(function () {
+              wx.hideLoading();
+              wx.reLaunch({
+                url: '../index/index'
+              })
+            }, 2000);
+
+          } else {
+            wx.showLoading({
+              title: "载入数据",
+              mask: true,
+            });
+            setTimeout(function () {
+              wx.hideLoading();
+            }, 1000);
+          }
         }
       }
     });
@@ -129,31 +153,6 @@ Page({
         }
       }
     });
-
-    if(!this.data.createtime){
-      wx.showLoading({
-        title: '正在返回首页',
-        mask: true,
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
-      })
-      setTimeout(function () {
-        wx.hideLoading();
-        wx.reLaunch({
-          url: '../index/index'
-        })
-      }, 2000);
-      
-    }else{
-      wx.showLoading({
-        title: "载入数据",
-        mask: true,
-      });
-      setTimeout(function () {
-        wx.hideLoading();
-      }, 1000);
-    }
   },
 
   /**

@@ -2,9 +2,7 @@
 <view>
   <view class="cry">
     <text class="line_text">请不起UI</text>
-
     <text class="line_text">我又不会设计</text>
-
     <text class="line_text">那就这样吧</text>
   </view>
   <button class="indexBtn" bindtap='startGame'>开始</button>
