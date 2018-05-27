@@ -95,3 +95,6 @@ page{
   left:30%;
   bottom:20%;
 }
+.mainBG{
+  width:90%;
+}
