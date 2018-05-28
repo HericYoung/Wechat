@@ -2,38 +2,27 @@
 <view>
   <form bindsubmit="nameSubmit" bindreset="nameReset">
   <scroll-view class="input_field" scroll-y="true">
-    <view style="height:50rpx"></view>
-    <text class="tipText">输入姓名:</text>
-    <view class="input input--haruki">
-      <view class="input__label input__label--haruki">
-          <text class="input__label-content input__label-content--haruki" animation="{{input1LabelAnimation}}" >玩家1</text>
-      </view>
-      <input class="input__field input__field--haruki" type="text" id="input-1" bindfocus='focusOnInput1' bindblur="loseFocusOnInput1"  name="player1_name"/>
+     <!-- <text class="tipText">输入姓名:</text> -->
+    <view class="input_view player1_view">
+      <input class="player1_input" type="text" id="input-1"  name="player1_name" placeholder='请输入玩家1姓名'/>
+      <image class="input_bg" src='../../icon/spades.png' mode='widthFix' ></image>
     </view>
 
-
-    <view class="input input--haruki">
-      <view class="input__label input__label--haruki">
-          <text class="input__label-content input__label-content--haruki" animation="{{input2LabelAnimation}}" >玩家2</text>
-      </view>
-      <input class="input__field input__field--haruki" type="text" id="input-1" bindfocus='focusOnInput2' bindblur="loseFocusOnInput2"  name="player2_name"/>
+    <view class="input_view player2_view">
+      <input class="player2_input" type="text" id="input-1" name="player2_name"  placeholder='请输入玩家2姓名'/>
+      <image class="input_bg" src='../../icon/hearts.png' mode='widthFix' ></image>
     </view>
 
-
-    <view class="input input--haruki">
-      <view class="input__label input__label--haruki">
-          <text class="input__label-content input__label-content--haruki" animation="{{input3LabelAnimation}}" >玩家3</text>
-      </view>
-      <input class="input__field input__field--haruki" type="text" id="input-1" bindfocus='focusOnInput3' bindblur="loseFocusOnInput3"  name="player3_name"/>
+    <view class="input_view player3_view">
+      <input class="player3_input" type="text" id="input-1" name="player3_name"  placeholder='请输入玩家3姓名'/>
+      <image class="input_bg" src='../../icon/clubs.png' mode='widthFix' ></image>
     </view>
 
-
-    <view class="input input--haruki">
-      <view class="input__label input__label--haruki">
-          <text class="input__label-content input__label-content--haruki" animation="{{input4LabelAnimation}}" >玩家4</text>
-      </view>
-      <input class="input__field input__field--haruki" type="text" id="input-1" bindfocus='focusOnInput4' bindblur="loseFocusOnInput4"  name="player4_name"/>
+    <view class="input_view player4_view">
+      <input class="player4_input" type="text" id="input-1" name="player4_name"  placeholder='请输入玩家4姓名'/>
+      <image class="input_bg" src='../../icon/dimonds.png' mode='widthFix' ></image>
     </view>
+
     </scroll-view>
 
     <view class="btnSection">

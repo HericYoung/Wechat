@@ -4,11 +4,67 @@ page{
 }
 scroll-view{
   height:950rpx;
-  
+  padding-top: 5%;
+}
+.input_bg{
+  width:100%;
+}
+.input_view{
+  margin-bottom: 2%;
+}
+.player1_view{
+  height:22%;
+}
+.player2_view{
+  height:17%;
+}
+.player3_view{
+  height:23%;
+}
+.player4_view{
+  height:20%;
+}
+.player1_input{
+  width:330rpx;
+  position: relative;
+  left: 40%;
+  top: 50%;
+  font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:120%;
+}
+.player2_input{
+  width:330rpx;
+  position: relative;
+  left: 20%;
+  top: 48%;
+  font-weight: bold;
+  font-size:120%;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+.player3_input{
+  width:330rpx;
+  position: relative;
+  left: 40%;
+  top: 58%;
+  font-weight: bold;
+  font-size:120%;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.player4_input{
+  width:330rpx;
+  position: relative;
+  left: 20%;
+  top: 59%;
+  font-weight: bold;
+  font-size:120%;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .tipText{
+  margin-top: 5%;
   padding-left: 70rpx;
-  height: 100rpx;
+  height: 10%;
   color: #6a7989;
 	font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

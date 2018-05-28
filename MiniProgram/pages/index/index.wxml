@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <view>
   <view class="cry">
+
     <image class="mainBG" src='../../icon/poker.png' mode="widthFix" >
     
     </image>
