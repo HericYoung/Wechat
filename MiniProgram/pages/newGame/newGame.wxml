@@ -4,27 +4,26 @@
   <scroll-view class="input_field" scroll-y="true">
      <!-- <text class="tipText">输入姓名:</text> -->
     <view class="input_view player1_view">
-      <input class="player1_input" type="text" id="input-1"  name="player1_name" placeholder='请输入玩家1姓名'/>
-      <image class="input_bg" src='../../icon/spades.png' mode='widthFix' ></image>
+      <input class="player1_input" type="text" id="input-1"  name="player1_name" placeholder='请输入玩家1姓名' animation="{{input1InputAnimation}}"/>
+      <image class="input_bg" src='../../icon/spades.png' mode='widthFix'  animation="{{input1BgAnimation}}"></image>
     </view>
 
     <view class="input_view player2_view">
-      <input class="player2_input" type="text" id="input-1" name="player2_name"  placeholder='请输入玩家2姓名'/>
-      <image class="input_bg" src='../../icon/hearts.png' mode='widthFix' ></image>
+      <input class="player2_input" type="text" id="input-1" name="player2_name"  placeholder='请输入玩家2姓名' animation="{{input2InputAnimation}}"/>
+      <image class="input_bg" src='../../icon/hearts.png' mode='widthFix'  animation="{{input2BgAnimation}}"></image>
     </view>
 
     <view class="input_view player3_view">
-      <input class="player3_input" type="text" id="input-1" name="player3_name"  placeholder='请输入玩家3姓名'/>
-      <image class="input_bg" src='../../icon/clubs.png' mode='widthFix' ></image>
+      <input class="player3_input" type="text" id="input-1" name="player3_name"  placeholder='请输入玩家3姓名' animation="{{input3InputAnimation}}"/>
+      <image class="input_bg" src='../../icon/clubs.png' mode='widthFix' animation="{{input3BgAnimation}}" ></image>
     </view>
 
-    <view class="input_view player4_view">
-      <input class="player4_input" type="text" id="input-1" name="player4_name"  placeholder='请输入玩家4姓名'/>
-      <image class="input_bg" src='../../icon/dimonds.png' mode='widthFix' ></image>
+    <view class="input_view player4_view" >
+      <input class="player4_input" type="text" id="input-1" name="player4_name"  placeholder='请输入玩家4姓名' animation="{{input4InputAnimation}}"/>
+      <image class="input_bg" src='../../icon/dimonds.png' mode='widthFix' animation="{{input4BgAnimation}}"></image>
     </view>
 
     </scroll-view>
-
     <view class="btnSection">
       <button class="name_submit" formType="submit">确认</button>
       <button class="name_reset" formType="reset">重置</button>

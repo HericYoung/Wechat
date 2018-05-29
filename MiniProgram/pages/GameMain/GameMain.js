@@ -7,8 +7,121 @@
 * @Last Modified by:   H3ric Young
 * @Last Modified time: 2018-01-11 10:47:18
 */
+import * as echarts from '../../ec-canvas/echarts';
 
 var util = require('../../utils/util.js');  //引入获取格式化系统时间的模块
+
+/**
+ * 
+ */
+function setOption(chart,names,game_data) {
+    var player1_data = [0],player2_data = [0],player3_data = [0],player4_data = [0];
+    var player1_last_round = 0, player2_last_round = 0, player3_last_round = 0, player4_last_round = 0;
+    for(var n in game_data){
+      if(game_data[n][0] != "-"){
+        player1_data[n+1] = game_data[n][0];
+        player1_last_round = game_data[n][0]
+      }
+      else{
+        player1_data[n+1] = player1_last_round;
+      }
+
+      if (game_data[n][1] != "-") {
+        player2_data[n+1] = game_data[n][1];
+        player2_last_round = game_data[n][1]
+      }
+      else {
+        player2_data[n+1] = player2_last_round;
+      }
+
+      if (game_data[n][2] != "-") {
+        player3_data[n+1] = game_data[n][2];
+        player3_last_round = game_data[n][2]
+      }
+      else {
+        player3_data[n+1] = player3_last_round;
+      }
+
+      if (game_data[n][3] != "-") {
+        player4_data[n+1] = game_data[n][3];
+        player4_last_round = game_data[n][3]
+      }
+      else {
+        player4_data[n+1] = player4_last_round;
+      }
+    }
+    const option = {
+    title: {
+      text: '',
+    },
+    legend: {
+      data: names
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    // color:'#049bfb',
+    xAxis: {
+      // show:false
+    },
+    yAxis: {
+      type: 'value',
+      // show:false
+    },
+    series: [
+      {
+        name: names[0],
+        type: 'line',
+        data: player1_data,
+        label: {
+          normal: {
+            show: true,
+            position: 'inside'
+          }
+        }
+      },
+      {
+        name: names[1],
+        type: 'line',
+        data: player2_data,
+        label: {
+          normal: {
+            show: true,
+            position: 'inside'
+          }
+        }
+      },
+        {
+          name: names[2],
+          type: 'line',
+          data: player3_data,
+          label: {
+            normal: {
+              show: true,
+              position: 'inside'
+            }
+          }},
+          {
+          name: names[3],
+          type: 'line',
+          data: player4_data,
+          label: {
+            normal: {
+              show: true,
+              position: 'inside'
+            }
+          }
+      }
+    ]
+  };
+
+  chart.setOption(option);
+}
+//end function setOption
+
 
 Page({
 
@@ -16,6 +129,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ec: {
+      lazyLoad:true
+    },
     players_name: [],              //玩家姓名列表
     createtime: "",                 //该牌局创建时间
     game_data: [],                  //该局的详细数据
@@ -84,7 +200,7 @@ Page({
       key: "players_name",
       success: function (res) {
         that.setData({ players_name: res.data });
-      }
+        }
     });
 
     wx.getStorage({
@@ -153,6 +269,8 @@ Page({
         }
       }
     });
+    this.ecComponent = this.selectComponent('#echarts_bar');
+    this.echarts_init();
   },
 
   /**
@@ -322,6 +440,8 @@ Page({
     this.setData({"current_sum":current_sum});
     this.setData({"game_data":game_data});
     this.setData({ "round_addition": round_addition });
+    this.echarts_init();
+  
     
     //记录到本地缓存中
     wx.setStorage({
@@ -381,6 +501,27 @@ Page({
     });
   },
 
+  /**
+   * 初始化echarts图表
+   */
+  echarts_init: function () {
+    var that = this;
+    this.ecComponent.init((canvas, width, height) => {
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      });
+      setOption(chart,this.data.players_name,this.data.game_data);
+
+      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+      this.chart = chart;
+
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
+    });
+  },
   /**
    * [picker_change 选择器有变动时触发]
    * @author Heric
@@ -466,6 +607,7 @@ Page({
           that.setData({"current_sum":current_sum});
           that.setData({ "round_addition": round_addition });
           that.setData({"isOver":isOver});
+          that.echarts_init();
           wx.setStorage({
             key: 'game_data',
             data: game_data,

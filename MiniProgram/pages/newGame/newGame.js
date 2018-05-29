@@ -20,10 +20,14 @@ Page({
     createtime:"",            //该牌局创建时间
     game_data:[],             //该局游戏的详细数据
     current_sum:[0,0,0,0],    //当前每人的累计剩余牌数
-    input1LabelAnimation:{},  //玩家1姓名输入框的动画配置数据
-    input2LabelAnimation: {}, //玩家2姓名输入框的动画配置数据
-    input3LabelAnimation: {}, //玩家3姓名输入框的动画配置数据
-    input4LabelAnimation: {}  //玩家4姓名输入框的动画配置数据
+    input1BgAnimation:{},  //玩家1姓名输入框的动画配置数据
+    input2BgAnimation: {}, //玩家2姓名输入框的动画配置数据
+    input3BgAnimation: {}, //玩家3姓名输入框的动画配置数据
+    input4BgAnimation: {}, //玩家4姓名输入框的动画配置数据
+    input1InputAnimation: {},
+    input2InputAnimation: {},
+    input3InputAnimation: {},
+    input4InputAnimation: {}
   },
 
   /**
@@ -74,6 +78,74 @@ Page({
     setTimeout(function () {
       wx.hideLoading();
     }, 1000);
+
+    var animation1 = wx.createAnimation({
+      duration: 2000,
+      timingFunction: "ease",
+      delay:500
+    });
+
+    var animation2 = wx.createAnimation({
+      duration: 2000,
+      timingFunction: "ease",
+      delay: 1000
+    });
+
+    var animation3 = wx.createAnimation({
+      duration: 2000,
+      timingFunction: "ease",
+      delay: 1500
+    });
+
+    var animation4 = wx.createAnimation({
+      duration: 2000,
+      timingFunction: "ease",
+      delay: 2000
+    });
+
+    var animation5 = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 2200
+    });
+
+    var animation6 = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 2300
+    });
+
+    var animation7 = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 2400
+    });
+
+    var animation8 = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 2500
+    });
+
+    animation1.opacity(1).step();
+    animation2.opacity(1).step();
+    animation3.opacity(1).step();
+    animation4.opacity(1).step();
+    animation5.opacity(1).step();
+    animation6.opacity(1).step();
+    animation7.opacity(1).step();
+    animation8.opacity(1).step();
+
+    this.setData({
+      input1BgAnimation: animation1.export(),
+      input2BgAnimation: animation2.export(),
+      input3BgAnimation: animation3.export(),
+      input4BgAnimation: animation4.export(),
+      input1InputAnimation: animation5.export(),
+      input2InputAnimation: animation6.export(),
+      input3InputAnimation: animation7.export(),
+      input4InputAnimation: animation8.export(),
+    })
   },
 
 
@@ -218,196 +290,7 @@ Page({
       title: '姓名已重置',
       image:"../../icon/ok.png"
     })
-  },
-
-  /**
-   * [focusOnInput1 玩家1姓名输入框获得焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  focusOnInput1:function(){
-    var animation = wx.createAnimation({
-      transformOrigin: "50% 50%",
-      duration: 1000,
-      timingFunction: "ease",
-      delay: 0
-    });
-
-    animation.translate(-10,-40).step();
-
-    this.setData({
-      input1LabelAnimation: animation.export()
-    })
-  },
-
-  /**
-   * [focusOnInput2 玩家2姓名输入框获得焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  focusOnInput2: function () {
-    var animation = wx.createAnimation({
-      transformOrigin: "50% 50%",
-      duration: 1000,
-      timingFunction: "ease",
-      delay: 0
-    });
-
-    animation.translate(-10, -40).step();
-
-    this.setData({
-      input2LabelAnimation: animation.export()
-    })
-  },
-
-  /**
-   * [focusOnInput3 玩家3姓名输入框获得焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  focusOnInput3: function () {
-    var animation = wx.createAnimation({
-      transformOrigin: "50% 50%",
-      duration: 1000,
-      timingFunction: "ease",
-      delay: 0
-    });
-
-    animation.translate(-10, -40).step();
-
-    this.setData({
-      input3LabelAnimation: animation.export()
-    })
-  },
-
-  /**
-   * [focusOnInput4 玩家4姓名输入框获得焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  focusOnInput4: function () {
-    var animation = wx.createAnimation({
-      transformOrigin: "50% 50%",
-      duration: 1000,
-      timingFunction: "ease",
-      delay: 0
-    });
-
-    animation.translate(-10, -40).step();
-
-    this.setData({
-      input4LabelAnimation: animation.export()
-    })
-  },
-
-  /**
-   * [loseFocusOnInput1 玩家1姓名输入框失去焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  loseFocusOnInput1:function(e){
-    if(e.detail.value == ""){
-      var animation = wx.createAnimation({
-        transformOrigin: "50% 50%",
-        duration: 1000,
-        timingFunction: "ease",
-        delay: 0
-      });
-      animation.step();
-
-      this.setData({
-        input1LabelAnimation: animation.export()
-      })
-    }
-  },
-
-  /**
-   * [loseFocusOnInput2 玩家2姓名输入框失去焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  loseFocusOnInput2: function (e) {
-    if (e.detail.value == "") {
-      var animation = wx.createAnimation({
-        transformOrigin: "50% 50%",
-        duration: 1000,
-        timingFunction: "ease",
-        delay: 0
-      });
-      animation.step();
-
-      this.setData({
-        input2LabelAnimation: animation.export()
-      })
-    }
-  }, 
-
-  /**
-   * [loseFocusOnInput3 玩家3姓名输入框失去焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  loseFocusOnInput3: function (e) {
-    if (e.detail.value == "") {
-      var animation = wx.createAnimation({
-        transformOrigin: "50% 50%",
-        duration: 1000,
-        timingFunction: "ease",
-        delay: 0
-      });
-      animation.step();
-
-      this.setData({
-        input3LabelAnimation: animation.export()
-      })
-    }
-  },
-
-  /**
-   * [loseFocusOnInput4 玩家4姓名输入框失去焦点时触发]
-   * @author Heric
-   * @date   2018-01-04
-   *
-   * @access [access]
-   * @return {[type]}   [description]
-   */
-  loseFocusOnInput4: function (e) {
-    if (e.detail.value == "") {
-      var animation = wx.createAnimation({
-        transformOrigin: "50% 50%",
-        duration: 1000,
-        timingFunction: "ease",
-        delay: 0
-      });
-      animation.step();
-
-      this.setData({
-        input4LabelAnimation: animation.export()
-      })
-    }
-  }
-  
+  }  
 });
 
 /**

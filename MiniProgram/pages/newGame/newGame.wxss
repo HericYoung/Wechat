@@ -8,6 +8,7 @@ scroll-view{
 }
 .input_bg{
   width:100%;
+  opacity: 0;
 }
 .input_view{
   margin-bottom: 2%;
@@ -32,6 +33,7 @@ scroll-view{
   font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:120%;
+  opacity: 0;
 }
 .player2_input{
   width:330rpx;
@@ -41,6 +43,7 @@ scroll-view{
   font-weight: bold;
   font-size:120%;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  opacity: 0;
 
 }
 .player3_input{
@@ -51,6 +54,7 @@ scroll-view{
   font-weight: bold;
   font-size:120%;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  opacity: 0;
 }
 .player4_input{
   width:330rpx;
@@ -60,6 +64,7 @@ scroll-view{
   font-weight: bold;
   font-size:120%;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  opacity: 0;
 }
 .tipText{
   margin-top: 5%;
@@ -81,7 +86,7 @@ scroll-view{
 }
 .btnSection{
   position: absolute; 
-  bottom: 0.1%;
+  bottom: 1%;
   width: 100%;
 }
 .input {
@@ -200,11 +205,15 @@ scroll-view{
 }
 
 .name_submit{
-  background: #07689F;
-  width: 99%;
+  background: #049bfb;
+  /* background: #07689F; */
+  width: 93%;
   color:#FAFAFA;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
+}
+.name_submit:active{
+  background: #037fda;
 }
 .name_reset{
-  width: 99%;
+  width: 93%;
 }

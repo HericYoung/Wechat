@@ -6,7 +6,7 @@
       <view class='name_view'>{{players_name[1]}}</view>
       <view class='name_view'>{{players_name[2]}}</view>
       <view class='name_view'>{{players_name[3]}}</view>
-      <view style="clear:both"></view>
+      <view class="clear_both"></view>
     </view>
 
     <view class="table_border number_row" wx:for="{{game_data}}" wx:for-item="round" wx:for-index="roundNum" wx:key="{{roundNum}}">
@@ -24,17 +24,32 @@
   </view>
 </view>
 
-
+ <view class="echars" >
+  <ec-canvas ec="{{ec}}" id="echarts_bar"></ec-canvas>
+</view> 
 
 <view class="progressArea">
-  <text class="progress_text">{{players_name[0]}}</text>
-  <progress percent="{{current_sum[0]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{players_name[1]}}</text>
-  <progress percent="{{current_sum[1]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{players_name[2]}}</text>
-  <progress percent="{{current_sum[2]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-  <text class="progress_text">{{players_name[3]}}</text>
-  <progress percent="{{current_sum[3]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
+  <view class="progress_row">
+    <text class="progress_text">{{players_name[0]}}</text>
+    <progress percent="{{current_sum[0]}}" show-info stroke-width="30" active activeColor="#A2D5F2"/>
+    <view class="clear_both"></view>
+  </view>
+  <view class="progress_row">
+    <text class="progress_text">{{players_name[1]}}</text>
+    <progress percent="{{current_sum[1]}}" show-info stroke-width="30" active activeColor="#A2D5F2"/>
+    <view class="clear_both"></view>
+  </view>
+  <view class="progress_row">
+    <text class="progress_text">{{players_name[2]}}</text>
+    <progress percent="{{current_sum[2]}}" show-info stroke-width="30" active activeColor="#A2D5F2"/>
+    <view class="clear_both"></view>
+  </view>
+  <view class="progress_row">
+    <text class="progress_text">{{players_name[3]}}</text>
+    <progress percent="{{current_sum[3]}}" show-info stroke-width="30" active activeColor="#A2D5F2"/>
+    <view class="clear_both"></view>
+  </view>
+  <view class="clear_both"></view>
 </view>
 
 <view class="newGameBtnField" hidden='{{!isOver}}'>
