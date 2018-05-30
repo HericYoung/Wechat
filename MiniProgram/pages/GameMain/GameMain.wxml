@@ -1,99 +1,78 @@
 <!--pages/GameMain/GameMain.wxml-->
 <view class="game_data_detail">
-  <scroll-view scroll-y="true" bindscrolltolower="touchBottom" bindscrolltoupper="touchTop">
     <view class="name_row table_border">
-      <view class='name_view'>{{players_name[0]}}</view>
-      <view class='name_view'>{{players_name[1]}}</view>
-      <view class='name_view'>{{players_name[2]}}</view>
-      <view class='name_view'>{{players_name[3]}}</view>
-      <view class="clear_both"></view>
+        <view class='name_view'>{{players_name[0]}}</view>
+        <view class='name_view'>{{players_name[1]}}</view>
+        <view class='name_view'>{{players_name[2]}}</view>
+        <view class='name_view'>{{players_name[3]}}</view>
+        <view class="clear_both"></view>
     </view>
-
-    <view class="table_border number_row" wx:for="{{game_data}}" wx:for-item="round" wx:for-index="roundNum" wx:key="{{roundNum}}">
-      <view class='number_view' wx:for="{{round}}" wx:for-item="number"  wx:key="{{index}}">
-        {{number}}
-      </view>
-      <!-- <view style="clear:both"></view> -->
+    <scroll-view scroll-y="true" bindscrolltolower="touchBottom" bindscrolltoupper="touchTop" scroll-into-view="{{last_round_view}}">
+        <view id="round_{{roundNum}}" class="table_border number_row" wx:for="{{game_data}}" wx:for-item="round" wx:for-index="roundNum" wx:key="{{roundNum}}">
+            <view wx:if="{{game_data.length-1 != roundNum}}">
+                <view class='number_view' wx:for="{{round}}" wx:for-item="number" wx:key="{{index}}">
+                    {{number}}
+                </view>
+            </view>
+            <view wx:else>
+                <view class='number_view  last_round' wx:for="{{round}}" wx:for-item="number" wx:key="{{index}}">
+                    {{number}}
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="touch_bottom_text">{{touch_bottom_tip}}</view>
+    <view class='recallBtnField'>
+        <button class="recallBtn" bindtap="recallLatestRound">
+        撤消最新一轮记分
+        </button>
     </view>
-  </scroll-view>
-  <view class="bottom_text">{{touch_bottom_tip}}</view>
-  <view class='recallBtnField'>
-      <button class="recallBtn" bindtap="recallLatestRound">
-        撤消最新一轮记分         
-      </button>
-  </view>
 </view>
+
 <view class="data_chart">
-  <!-- <view>
-    <image class="change_chart_btn" mode='ease' src="{{bar_icon_url}}" bindtap="changeBar"></image>
-    <image class="change_chart_btn" mode='ease' src="{{line_icon_url}}" bindtap="changeLine"></image>
-  </view> -->
-  <view class="bar_chart_area" style="display:{{isBarDisplay}}">
-    <view class="progress_row">
-      <text class="progress_text">{{players_name[0]}}</text>
-      <progress percent="{{current_sum[0]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-      <view class="clear_both"></view>
+    <view class="change_chart_btn_view">
+        <image class="change_chart_btn" mode='ease' src="{{bar_icon_url}}" bindtap="changeBar"></image>
+        <image class="change_chart_btn" mode='ease' src="{{line_icon_url}}" bindtap="changeLine"></image>
+    </view> 
+    <view class="bar_chart_area" style="display:{{isBarDisplay}}">
+        <scroll-view scroll-y="true" class="bar_chart_area">
+            <view class="progress_row">
+                <text class="progress_text">{{players_name[0]}}</text>
+                <progress percent="{{current_sum[0]}}" show-info stroke-width="20" active activeColor="#A2D5F2" />
+                <view class="clear_both"></view>
+            </view>
+            <view class="progress_row">
+                <text class="progress_text">{{players_name[1]}}</text>
+                <progress percent="{{current_sum[1]}}" show-info stroke-width="20" active activeColor="#A2D5F2" />
+                <view class="clear_both"></view>
+            </view>
+            <view class="progress_row">
+                <text class="progress_text">{{players_name[2]}}</text>
+                <progress percent="{{current_sum[2]}}" show-info stroke-width="20" active activeColor="#A2D5F2" />
+                <view class="clear_both"></view>
+            </view>
+            <view class="progress_row">
+                <text class="progress_text">{{players_name[3]}}</text>
+                <progress percent="{{current_sum[3]}}" show-info stroke-width="20" active activeColor="#A2D5F2" />
+                <view class="clear_both"></view>
+            </view>
+            <view class="clear_both"></view>
+        </scroll-view>
     </view>
-    <view class="progress_row">
-      <text class="progress_text">{{players_name[1]}}</text>
-      <progress percent="{{current_sum[1]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-      <view class="clear_both"></view>
+
+    <view class="line_chart_area" style="display:{{isLineDisplay}}">
+        <ec-canvas ec="{{ec}}" id="echarts_bar"></ec-canvas>
+        <view class="clear_both"></view>
     </view>
-    <view class="progress_row">
-      <text class="progress_text">{{players_name[2]}}</text>
-      <progress percent="{{current_sum[2]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-      <view class="clear_both"></view>
-    </view>
-    <view class="progress_row">
-      <text class="progress_text">{{players_name[3]}}</text>
-      <progress percent="{{current_sum[3]}}" show-info stroke-width="20" active activeColor="#A2D5F2"/>
-      <view class="clear_both"></view>
-    </view>
-    <view class="clear_both"></view>
-  </view>
-   <view class="line_chart_area" style="display:{{isLineDisplay}}">
-    <ec-canvas ec="{{ec}}" id="echarts_bar"></ec-canvas>
-  </view> 
 </view>
+
 <view class="newGameBtnField" hidden='{{!isOver}}'>
-  <button class="quitBtn" bindtap="returnIndex">退出</button>
-  <button class="newGameBtn" bindtap="newGame">新开牌局</button>
+    <button class="quitBtn" bindtap="returnIndex">退出</button>
+    <button class="newGameBtn" bindtap="newGame">新开牌局</button>
 </view>
 
-<view class="newRoundForm" style="display:{{picker_display}}">
-  <view class="picker_title">该轮各人剩余扑克张数</view>
-  <view class="picker_tip">注意：只需选择实际剩余牌数，系统会自动换算，8~10张乘以2，10~12张乘以3，13张乘以4</view>
-  <picker-view indicator-class="picker_item" class="number_picker" bindchange="picker_change" value="{{value}}" mask-class='picker_mask'>
-    <picker-view-column >
-      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player1_{{index}}">
-        <view wx:if="{{item == '0'}}">赢</view>
-        <view wx:else>{{item}}</view>
-      </view>
-    </picker-view-column>
-    <picker-view-column>
-      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player2_{{index}}">
-        <view wx:if="{{item == '0'}}">赢</view>
-        <view wx:else>{{item}}</view>
-      </view>
-    </picker-view-column>
-    <picker-view-column>
-      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player3_{{index}}">
-      <view wx:if="{{item == '0'}}">赢</view>
-        <view wx:else>{{item}}</view>  
-    </view>
-    </picker-view-column>
-    <picker-view-column>
-      <view wx:for="{{number_values}}" style="line-height: 50px" wx:key="player4_{{index}}">
-        <view wx:if="{{item == '0'}}">赢</view>
-        <view wx:else>{{item}}</view>  
-      </view>
-    </picker-view-column>
-  </picker-view>
-  <view class="picker_btn">
-    <button bindtap='hidePicker' class="picker_cancel">取消</button>
-    <button bindtap='submitNewRound' class="picker_confirm">记录</button>
+<view  class="newRoundBtnField" >
+    <picker mode="multiSelector" bindchange="bindPickerChange" value="{{current_value_array}}"  range="{{value_name_array}}">
+        <button class="addNewRoundBtn">结算新一轮</button>
+    </picker>
 </view>
-</view>
-
-<button class="calBtn" bindtap='newRound'>结算新一轮</button>
-

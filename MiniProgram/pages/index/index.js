@@ -18,6 +18,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    version:"v0.5",
     createtime: "",   //旧牌局（若存在）的创建时间
   },
 

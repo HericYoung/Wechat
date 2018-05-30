@@ -1,38 +1,31 @@
 /* pages/GameMain/GameMain.wxss */
+/*每局数据详情部分  */
 page{
   background: #FAFAFA;
-}
-.data_chart{
-  width:87%;
-  height: 500rpx;
-  background: #FFF;
-  margin:3% auto;
-  border-radius: 15rpx;
-  padding:1% 3%;
-  
-}
-.bar_chart_area{
-}
-.line_chart_area{
-  height:100%;
-  width:100%;
+  height: 100%;
 }
 .game_data_detail{
   position:relative;
   width:93%;
-  height: 300px;
+  height: 45%;
   background: #FFF;
   margin:2% auto;
   border-radius: 15rpx;
 }
 scroll-view{
-  height:80%;
+  height:60%;
 }
-
 .table_border{
   border-width: 1px;
   border-style: solid;
   border-color: #07689F;
+}
+.name_view{
+  text-align: center;
+  float:left;
+  width:24.7%;
+  height:60rpx;
+  color: #FAFAFA;
 }
 .name_row{
   margin: 5% auto 0;
@@ -46,48 +39,28 @@ scroll-view{
 .name_row:not(:last-child){
    border-bottom-width: 0; 
 }
-
-.name_view{
-  text-align: center;
-  float:left;
-  width:25%;
-  height:60rpx;
-  color: #FAFAFA;
-}
-.clear_both{
-  clear:both;
-}
 .number_row{
   margin: 0 auto;
   width: 93%;
   height:30px;
-  /* border-left-width: 0;
-  border-right-width: 0; */
 }
-.number_row:last-child{
-  /* border-left-width: 0;
-  border-right-width: 0; */
-}
-.progress_row{
-  margin-top:5%;
-}
-.progress_text{
-  font-size: 35rpx;
-  float: left;
-  width:15%;
-}
-
 .number_view{
   text-align: center;
   float:left;
   width:25%;
 }
-.bottom_text{
+.touch_bottom_text{
   width:100%;
-  margin:-3% auto;
+  margin:1% auto;
   text-align: center;
   color:#aaa;
   font-size: 30rpx;
+}
+.recallBtnField{
+  margin:5% auto 2%;
+  position: absolute;
+  bottom:4rpx;
+  width:100%;
 }
 .recallBtn{
   border-radius: 5px;
@@ -96,19 +69,60 @@ scroll-view{
   background:#07689F;
   color:#FFF;
 }
-.recallBtnField{
-  margin:5% auto 2%;
-  position: absolute;
-  bottom:4rpx;
+.last_round{
+    color:#07689F;
+}
+/*每局数据详情部分end  */
+
+/*数据统计图表部分  */
+.data_chart{
+  width:87%;
+  height: 40%;
+  background: #FFF;
+  margin:3% auto;
+  border-radius: 15rpx;
+  padding:1% 3%;
+}
+.change_chart_btn_view{
+  height:12%;
+}
+.change_chart_btn{
+  width:60rpx;
+  height:100%;
+}
+.bar_chart_area{
+  height: 100%;
+}
+.progressArea{
+  width:87%;
+  /* height: 420rpx; */
+  background: #FFF;
+  margin:3% auto;
+  border-radius: 15rpx;
+  padding:1% 3%;
+}
+progress{
+   margin-bottom: 1%; 
+   margin-left: 3%;
+   width:80%;
+   float:left;
+}
+.line_chart_area{
+  height:100%;
   width:100%;
 }
-.calBtn{
-  position:fixed;
-  bottom: 0;
-  width:100%;
-  background: #07689F;
-  color:#FAFAFA;
+.progress_row{
+  margin-top:5%;
 }
+.progress_text{
+  font-size: 35rpx;
+  float: left;
+  width:15%;
+  overflow: hidden;
+}
+/*数据统计图表部分end  */
+
+/*数字拨盘部分  */
 .newRoundForm{
   width:100%;
   height:620rpx;
@@ -128,11 +142,6 @@ scroll-view{
   background: #FAFAFA;
   width:100%;
   position:fixed;
-}
-.change_chart_btn{
-  width:80rpx;
-  height:80rpx;
-  
 }
 .picker_confirm{
   width:50%;
@@ -156,31 +165,25 @@ scroll-view{
   text-align: center;
   padding-top:20rpx;
 }
-.progressArea{
-  width:87%;
-  /* height: 420rpx; */
-  background: #FFF;
-  margin:3% auto;
-  border-radius: 15rpx;
-  padding:1% 3%;
-}
-progress{
-   margin-bottom: 1%; 
-   margin-left: 3%;
-   width:80%;
-   float:left;
-}
 .picker_item{
   color:#222;
   /* background: #fff; */
   height:40px;
 }
+/*数字拨盘部分end  */
 
+/*底部按钮部分  */
+.addNewRoundBtn{
+  width:100%;
+  background: #07689F;
+  color:#FAFAFA;
+  position:fixed;
+  bottom:0;
+}
 .newGameBtnField{
   position:fixed;
   bottom:0;
   width:100%;
-  z-index: 100;
   background: #FAFAFA;
 }
 .newGameBtn{
@@ -193,4 +196,9 @@ progress{
   width:50%;
   float: left;
   background: #FFF;
+}
+/*底部按钮部分end  */
+
+.clear_both{
+  clear:both;
 }

@@ -6,7 +6,7 @@
     
     </image>
   </view>
-  <view class="version">v0.25</view>
+  <view class="version">{{version}}</view>
   <button class="indexBtn" bindtap='startGame'>开始</button>
 
 </view>
