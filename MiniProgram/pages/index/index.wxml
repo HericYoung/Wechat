@@ -7,6 +7,7 @@
     </image>
   </view>
   <view class="version">{{version}}</view>
+  <image src='../../icon/question.png' class='questionIcon' mode="widthFix" bindtap='showInfo'></image>
   <button class="indexBtn" bindtap='startGame'>开始</button>
 
 </view>

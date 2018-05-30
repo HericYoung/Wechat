@@ -31,8 +31,8 @@
 
 <view class="data_chart">
     <view class="change_chart_btn_view">
-        <image class="change_chart_btn" mode='ease' src="{{bar_icon_url}}" bindtap="changeBar"></image>
-        <image class="change_chart_btn" mode='ease' src="{{line_icon_url}}" bindtap="changeLine"></image>
+        <image class="change_chart_btn" mode='widthFix' src="{{bar_icon_url}}" bindtap="changeBar"></image>
+        <image class="change_chart_btn" mode='widthFix' src="{{line_icon_url}}" bindtap="changeLine"></image>
     </view> 
     <view class="bar_chart_area" style="display:{{isBarDisplay}}">
         <scroll-view scroll-y="true" class="bar_chart_area">

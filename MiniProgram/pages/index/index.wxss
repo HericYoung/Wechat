@@ -7,6 +7,12 @@ page{
   left: 1%;
   font-size: smaller;
 }
+.questionIcon{
+    width:10%;
+    position: absolute;
+    left:88%;
+    bottom: 2%;
+}
 .cry{
   margin:300rpx auto;
   width: 100%;
