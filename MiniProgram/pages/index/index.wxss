@@ -1,6 +1,12 @@
 page{
   background: #FAFAFA;
 }
+.version{
+  position: absolute;
+  bottom: 0.5%;
+  left: 1%;
+  font-size: smaller;
+}
 .cry{
   margin:300rpx auto;
   width: 100%;

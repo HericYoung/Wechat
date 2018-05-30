@@ -15,39 +15,40 @@ var util = require('../../utils/util.js');  //引入获取格式化系统时间�
  * 
  */
 function setOption(chart,names,game_data) {
-    var player1_data = [0],player2_data = [0],player3_data = [0],player4_data = [0];
+    var player1_data = [0],player2_data = [0],player3_data = [0],player4_data = [0],round_num = [0];
     var player1_last_round = 0, player2_last_round = 0, player3_last_round = 0, player4_last_round = 0;
     for(var n in game_data){
+      round_num.push(round_num[n]+1);
       if(game_data[n][0] != "-"){
-        player1_data[n+1] = game_data[n][0];
+        player1_data.push(game_data[n][0]);
         player1_last_round = game_data[n][0]
       }
       else{
-        player1_data[n+1] = player1_last_round;
+        player1_data.push(player1_last_round);
       }
 
       if (game_data[n][1] != "-") {
-        player2_data[n+1] = game_data[n][1];
+        player2_data.push(game_data[n][1]);
         player2_last_round = game_data[n][1]
       }
       else {
-        player2_data[n+1] = player2_last_round;
+        player2_data.push(player2_last_round);
       }
 
       if (game_data[n][2] != "-") {
-        player3_data[n+1] = game_data[n][2];
-        player3_last_round = game_data[n][2]
+        player3_data.push(game_data[n][2]);
+        player3_last_round = game_data[n][2];
       }
       else {
-        player3_data[n+1] = player3_last_round;
+        player3_data.push(player3_last_round);
       }
 
       if (game_data[n][3] != "-") {
-        player4_data[n+1] = game_data[n][3];
-        player4_last_round = game_data[n][3]
+        player4_data.push(game_data[n][3]);
+        player4_last_round = game_data[n][3];
       }
       else {
-        player4_data[n+1] = player4_last_round;
+        player4_data.push(player4_last_round);
       }
     }
     const option = {
@@ -57,17 +58,24 @@ function setOption(chart,names,game_data) {
     legend: {
       data: names
     },
+    grid: {
+      z:0,
+    },
     tooltip: {
       trigger: 'axis',
       axisPointer: {
-        type: 'shadow'
+        type: 'line'
       }
     },
     // color:'#049bfb',
     xAxis: {
+      name:"局\n数",
+      type:"category",
+      data:round_num,
       // show:false
     },
     yAxis: {
+      name:'剩余牌数',
       type: 'value',
       // show:false
     },
@@ -130,7 +138,7 @@ Page({
    */
   data: {
     ec: {
-      lazyLoad:true
+      lazyLoad:true,
     },
     players_name: [],              //玩家姓名列表
     createtime: "",                 //该牌局创建时间
@@ -157,7 +165,11 @@ Page({
     picker_numbers:{0:0,1:0,2:0,3:0},//当前一轮的选择器的初始值
     round_addition:[],               //每轮每人添加的牌数（已经过倍数换算）
     isOver:false,                    //该局是否结束
-    touch_bottom_tip:"往下拉查看更多"  //下拉提示信息
+    touch_bottom_tip:"往下拉查看更多",  //下拉提示信息
+    bar_icon_url:"../../icon/bar_chart_active.png",
+    line_icon_url:"../../icon/line_chart.png",
+    isBarDisplay:"block",
+    isLineDisplay:"none",
   },
 
   /**
@@ -748,5 +760,18 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
+  changeBar:function(){
+    this.setData({'bar_icon_url':"../../icon/bar_chart_active.png"});
+    this.setData({ 'line_icon_url': "../../icon/line_chart.png" });
+    this.setData({'isBarDisplay':'block'});
+    this.setData({ 'isLineDisplay': 'none' });
+  },
+  changeLine:function(){
+    this.setData({ 'line_icon_url': "../../icon/line_chart_active.png" });
+    this.setData({ 'bar_icon_url': "../../icon/bar_chart.png" });
+    this.setData({ 'isLineDisplay': 'block' });
+    this.setData({ 'isBarDisplay': 'none' });
+    this.echarts_init();
   }
 })
