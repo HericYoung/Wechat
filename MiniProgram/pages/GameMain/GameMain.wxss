@@ -185,6 +185,7 @@ progress{
   bottom:0;
   width:100%;
   background: #FAFAFA;
+  z-index: 100;
 }
 .newGameBtn{
   width:50%;

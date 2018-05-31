@@ -646,25 +646,28 @@ Page({
       this.setData({current_value_array:[0, 0, 0, 0]});
 
       //判断每人当前累计剩余牌数，若存在超过或等于100的情况，将该局的状态改为结束
+      var loser;
       for (var num in current_sum) {
           if (current_sum[num] >= 100) {
               isOver = true;
-              // switch(num){
-              //   case '0':loser = this.data.player1_name;break;
-              //   case '1': loser = this.data.player2_name; break;
-              //   case '2': loser = this.data.player3_name; break;
-              //   default: loser = this.data.player4_name; break;
-              // }
-              // break;
+              switch(num){
+                case '0':loser = this.data.players_name[0];break;
+                case '1': loser = this.data.players_name[1]; break;
+                case '2': loser = this.data.players_name[2]; break;
+                default: loser = this.data.players_name[3]; 
+              }
+              break;
           }
       }
-
       this.setData({ "isOver": isOver });
+      var endTip = "该局结束,";
+      endTip += loser;
+      endTip += "累计剩余牌数已破百。"
 
       if (isOver) {
           wx.showModal({
               // title: '',
-              content: '结束',
+              content: endTip,
               showCancel: false,
               cancelText: '',
               cancelColor: '',
